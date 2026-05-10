@@ -1,20 +1,23 @@
-"""Echiquier interactif avec drag & drop, surlignages, retournement.
+"""Echiquier interactif : pièces SVG (chess.svg), drag & drop, surlignages.
 
-Rendu custom (QPainter) pour rester totalement portable et indépendant
-des images externes. Les pièces sont dessinées en Unicode (figurines).
+Le rendu utilise les SVG de python-chess (chess.svg.piece) via QSvgRenderer,
+garantissant une lisibilité maximale, des pièces nettement différenciées
+(blanc à contour noir, noir à contour blanc) et un visuel premium.
 """
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Callable, Dict, Optional
+from typing import Dict, Optional, Tuple
 
 import chess
-from PySide6.QtCore import QPointF, QRectF, Qt, Signal
+import chess.svg
+
+from PySide6.QtCore import QByteArray, QPointF, QRectF, Qt, Signal
 from PySide6.QtGui import (
     QBrush,
     QColor,
     QFont,
-    QFontMetricsF,
+    QImage,
     QLinearGradient,
     QMouseEvent,
     QPainter,
@@ -22,63 +25,90 @@ from PySide6.QtGui import (
     QPen,
     QResizeEvent,
 )
+from PySide6.QtSvg import QSvgRenderer
 from PySide6.QtWidgets import QWidget
-
-
-# Glyphes Unicode pour chaque pièce
-PIECE_GLYPHS: Dict[str, str] = {
-    "K": "♔", "Q": "♕", "R": "♖",
-    "B": "♗", "N": "♘", "P": "♙",
-    "k": "♚", "q": "♛", "r": "♜",
-    "b": "♝", "n": "♞", "p": "♟",
-}
 
 
 @dataclass
 class BoardTheme:
     light_square: QColor
     dark_square: QColor
-    light_piece: QColor
-    dark_piece: QColor
     border: QColor
     coord_text: QColor
     last_move: QColor
     recommended: QColor
     selected: QColor
     legal_dot: QColor
+    capture_ring: QColor
     check: QColor
 
 
-def dark_theme() -> BoardTheme:
+def premium_theme() -> BoardTheme:
+    """Palette inspirée des thèmes 'wood/green' premium, très contrastée."""
     return BoardTheme(
-        light_square=QColor("#E8DCC4"),
-        dark_square=QColor("#7B6A52"),
-        light_piece=QColor("#FFFFFF"),
-        dark_piece=QColor("#1B1B1B"),
-        border=QColor("#1B1B1B"),
-        coord_text=QColor("#A89B82"),
-        last_move=QColor(255, 213, 79, 110),
-        recommended=QColor(80, 200, 120, 130),
-        selected=QColor(80, 160, 230, 130),
+        light_square=QColor("#EEEED2"),  # ivoire
+        dark_square=QColor("#769656"),   # vert profond
+        border=QColor("#0E1116"),
+        coord_text=QColor("#C9D1DC"),
+        last_move=QColor(245, 220, 80, 150),
+        recommended=QColor(80, 200, 120, 160),
+        selected=QColor(120, 200, 255, 130),
         legal_dot=QColor(20, 20, 20, 110),
-        check=QColor(220, 40, 40, 160),
+        capture_ring=QColor(220, 60, 60, 180),
+        check=QColor(220, 50, 50, 170),
     )
 
 
-class BoardWidget(QWidget):
-    """Widget d'échiquier avec interaction utilisateur complète.
+# -- SVG piece rendering -----------------------------------------------------
 
-    Émet :
-      - move_played(uci): l'utilisateur a déposé une pièce sur une case légale.
-    """
+_renderer_cache: Dict[str, QSvgRenderer] = {}
+
+
+def _get_renderer(piece: chess.Piece) -> QSvgRenderer:
+    sym = piece.symbol()
+    renderer = _renderer_cache.get(sym)
+    if renderer is None:
+        svg_text = chess.svg.piece(piece)
+        renderer = QSvgRenderer(QByteArray(svg_text.encode("utf-8")))
+        _renderer_cache[sym] = renderer
+    return renderer
+
+
+_pixmap_cache: Dict[Tuple[str, int], QImage] = {}
+
+
+def _piece_image(piece: chess.Piece, size: int) -> QImage:
+    key = (piece.symbol(), size)
+    img = _pixmap_cache.get(key)
+    if img is None:
+        img = QImage(size, size, QImage.Format_ARGB32)
+        img.fill(Qt.transparent)
+        painter = QPainter(img)
+        painter.setRenderHints(
+            QPainter.Antialiasing
+            | QPainter.SmoothPixmapTransform
+            | QPainter.TextAntialiasing
+        )
+        _get_renderer(piece).render(painter, QRectF(0, 0, size, size))
+        painter.end()
+        if len(_pixmap_cache) > 256:
+            _pixmap_cache.clear()
+        _pixmap_cache[key] = img
+    return img
+
+
+# -- Widget ------------------------------------------------------------------
+
+class BoardWidget(QWidget):
+    """Widget d'échiquier avec interaction utilisateur complète."""
 
     move_played = Signal(str)  # UCI string
 
     def __init__(self, parent: Optional[QWidget] = None) -> None:
         super().__init__(parent)
-        self.setMinimumSize(420, 420)
+        self.setMinimumSize(440, 440)
         self.setMouseTracking(True)
-        self.theme: BoardTheme = dark_theme()
+        self.theme: BoardTheme = premium_theme()
 
         self._board: chess.Board = chess.Board()
         self._orientation_white_bottom: bool = True
@@ -122,7 +152,7 @@ class BoardWidget(QWidget):
     # ---------- Geometry ----------
 
     def _board_rect(self) -> QRectF:
-        margin = 18.0 if self._show_coords else 8.0
+        margin = 22.0 if self._show_coords else 10.0
         size = min(self.width(), self.height()) - 2 * margin
         size = max(size, 0.0)
         x = (self.width() - size) / 2.0
@@ -141,13 +171,10 @@ class BoardWidget(QWidget):
         row = int((point.y() - rect.top()) // ss)
         col = max(0, min(7, col))
         row = max(0, min(7, row))
-        # Convertir en (file, rank) selon orientation
         if self._orientation_white_bottom:
-            file = col
-            rank = 7 - row
+            file, rank = col, 7 - row
         else:
-            file = 7 - col
-            rank = row
+            file, rank = 7 - col, row
         return chess.square(file, rank)
 
     def _square_rect(self, square: int) -> QRectF:
@@ -156,11 +183,9 @@ class BoardWidget(QWidget):
         file = chess.square_file(square)
         rank = chess.square_rank(square)
         if self._orientation_white_bottom:
-            col = file
-            row = 7 - rank
+            col, row = file, 7 - rank
         else:
-            col = 7 - file
-            row = rank
+            col, row = 7 - file, rank
         return QRectF(rect.left() + col * ss, rect.top() + row * ss, ss, ss)
 
     # ---------- Mouse ----------
@@ -200,7 +225,6 @@ class BoardWidget(QWidget):
             return
 
         move = chess.Move(from_sq, target)
-        # Promotion automatique en dame
         piece = self._board.piece_at(from_sq)
         if piece and piece.piece_type == chess.PAWN:
             target_rank = chess.square_rank(target)
@@ -226,48 +250,62 @@ class BoardWidget(QWidget):
 
     def paintEvent(self, event: QPaintEvent) -> None:  # noqa: N802
         painter = QPainter(self)
-        painter.setRenderHints(QPainter.Antialiasing | QPainter.TextAntialiasing | QPainter.SmoothPixmapTransform)
+        painter.setRenderHints(
+            QPainter.Antialiasing
+            | QPainter.TextAntialiasing
+            | QPainter.SmoothPixmapTransform
+        )
 
-        # Fond + bordure subtile
         rect = self._board_rect()
-        outer = rect.adjusted(-6, -6, 6, 6)
+        ss = self._square_size()
+
+        # Cadre / bordure
+        outer = rect.adjusted(-8, -8, 8, 8)
         grad = QLinearGradient(outer.topLeft(), outer.bottomRight())
-        grad.setColorAt(0, QColor("#23272f"))
-        grad.setColorAt(1, QColor("#11141a"))
+        grad.setColorAt(0, QColor("#1A2030"))
+        grad.setColorAt(1, QColor("#0A0D13"))
         painter.setBrush(QBrush(grad))
         painter.setPen(QPen(self.theme.border, 1.5))
-        painter.drawRoundedRect(outer, 10, 10)
+        painter.drawRoundedRect(outer, 12, 12)
 
         # Cases
-        ss = self._square_size()
         for square in chess.SQUARES:
             r = self._square_rect(square)
             light = (chess.square_file(square) + chess.square_rank(square)) % 2 == 1
             color = self.theme.light_square if light else self.theme.dark_square
             painter.fillRect(r, color)
 
-        # Surlignages : dernier coup
+        # Surlignages dernier coup
         if self._last_move is not None:
             painter.fillRect(self._square_rect(self._last_move.from_square), self.theme.last_move)
             painter.fillRect(self._square_rect(self._last_move.to_square), self.theme.last_move)
 
-        # Surlignage : coup recommandé
+        # Coup recommandé : flèche-encadrement
         if self._recommended_move is not None:
-            painter.fillRect(self._square_rect(self._recommended_move.from_square), self.theme.recommended)
-            painter.fillRect(self._square_rect(self._recommended_move.to_square), self.theme.recommended)
+            self._draw_recommendation_overlay(painter, self._recommended_move, ss)
 
-        # Sélection / cibles légales
+        # Sélection
         if self._selected_square is not None:
             painter.fillRect(self._square_rect(self._selected_square), self.theme.selected)
+
+        # Cibles légales
         if self._legal_targets:
             for target in self._legal_targets:
                 tr = self._square_rect(target)
                 cx = tr.center().x()
                 cy = tr.center().y()
-                radius = ss * 0.16
-                painter.setPen(Qt.NoPen)
-                painter.setBrush(QBrush(self.theme.legal_dot))
-                painter.drawEllipse(QPointF(cx, cy), radius, radius)
+                if self._board.piece_at(target) is not None:
+                    # Anneau pour capture
+                    pen = QPen(self.theme.capture_ring, max(2.0, ss * 0.045))
+                    painter.setPen(pen)
+                    painter.setBrush(Qt.NoBrush)
+                    inset = ss * 0.06
+                    painter.drawEllipse(tr.adjusted(inset, inset, -inset, -inset))
+                else:
+                    radius = ss * 0.16
+                    painter.setPen(Qt.NoPen)
+                    painter.setBrush(QBrush(self.theme.legal_dot))
+                    painter.drawEllipse(QPointF(cx, cy), radius, radius)
 
         # Échec
         if self._board.is_check():
@@ -279,39 +317,33 @@ class BoardWidget(QWidget):
         if self._show_coords:
             painter.setPen(QPen(self.theme.coord_text))
             f = QFont(self.font())
-            f.setPointSizeF(max(8.0, ss * 0.18))
+            f.setPointSizeF(max(9.0, ss * 0.20))
             f.setBold(True)
             painter.setFont(f)
             for i in range(8):
                 rank = 7 - i if self._orientation_white_bottom else i
                 file = i if self._orientation_white_bottom else 7 - i
-                # rangées (à gauche)
-                rect_left = QRectF(rect.left() - 16, rect.top() + i * ss, 14, ss)
+                rect_left = QRectF(rect.left() - 20, rect.top() + i * ss, 17, ss)
                 painter.drawText(rect_left, Qt.AlignVCenter | Qt.AlignRight, str(rank + 1))
-                # colonnes (en bas)
-                rect_bottom = QRectF(rect.left() + i * ss, rect.bottom() + 2, ss, 14)
+                rect_bottom = QRectF(rect.left() + i * ss, rect.bottom() + 3, ss, 16)
                 painter.drawText(rect_bottom, Qt.AlignHCenter | Qt.AlignTop, chr(ord("a") + file))
 
-        # Pièces
-        font = QFont(self.font())
-        font.setPointSizeF(ss * 0.72)
-        painter.setFont(font)
-        fm = QFontMetricsF(font)
-
+        # Pièces (SVG cachées en QImage)
+        piece_size = max(8, int(ss))
         for square in chess.SQUARES:
             if self._dragging_from == square:
                 continue
             piece = self._board.piece_at(square)
             if piece is None:
                 continue
-            self._draw_piece(painter, piece, self._square_rect(square), fm)
+            self._draw_piece(painter, piece, self._square_rect(square), piece_size)
 
         # Pièce en cours de drag (au-dessus)
         if self._dragging_from is not None and self._drag_pos is not None:
             piece = self._board.piece_at(self._dragging_from)
             if piece is not None:
                 r = QRectF(self._drag_pos.x() - ss / 2, self._drag_pos.y() - ss / 2, ss, ss)
-                self._draw_piece(painter, piece, r, fm)
+                self._draw_piece(painter, piece, r, piece_size)
 
         painter.end()
 
@@ -320,23 +352,29 @@ class BoardWidget(QWidget):
         painter: QPainter,
         piece: chess.Piece,
         rect: QRectF,
-        fm: QFontMetricsF,
+        piece_size: int,
     ) -> None:
-        symbol_white = piece.symbol().upper()
-        glyph = PIECE_GLYPHS[symbol_white]  # on dessine toujours la silhouette pleine
-
+        pad = max(2.0, rect.width() * 0.04)
+        target = rect.adjusted(pad, pad, -pad, -pad)
+        img = _piece_image(piece, piece_size)
         # Ombre subtile
-        painter.setPen(QPen(QColor(0, 0, 0, 130)))
-        shadow_rect = QRectF(rect)
-        shadow_rect.translate(1.5, 2.0)
-        painter.drawText(shadow_rect, Qt.AlignCenter, glyph)
+        painter.setOpacity(0.32)
+        painter.drawImage(target.translated(1.5, 2.0), img)
+        painter.setOpacity(1.0)
+        painter.drawImage(target, img)
 
-        # Couleur de la pièce
-        color = self.theme.light_piece if piece.color == chess.WHITE else self.theme.dark_piece
-        painter.setPen(QPen(color))
-        painter.drawText(rect, Qt.AlignCenter, glyph)
-
-        # Contour fin pour lisibilité
-        contour = QColor(0, 0, 0) if piece.color == chess.WHITE else QColor(255, 255, 255, 80)
-        painter.setPen(QPen(contour, 0.6))
-        painter.drawText(rect, Qt.AlignCenter, glyph)
+    def _draw_recommendation_overlay(
+        self,
+        painter: QPainter,
+        move: chess.Move,
+        ss: float,
+    ) -> None:
+        from_rect = self._square_rect(move.from_square)
+        to_rect = self._square_rect(move.to_square)
+        painter.fillRect(from_rect, self.theme.recommended)
+        painter.fillRect(to_rect, self.theme.recommended)
+        # Fine bordure verte autour de la case d'arrivée
+        pen = QPen(QColor(40, 160, 90, 220), max(2.0, ss * 0.045))
+        painter.setPen(pen)
+        painter.setBrush(Qt.NoBrush)
+        painter.drawRect(to_rect.adjusted(2, 2, -2, -2))

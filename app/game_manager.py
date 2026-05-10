@@ -10,7 +10,12 @@ import chess
 import chess.pgn
 
 from .engine import EngineManager
-from .opening_book import OpeningBook, TheoryHit
+from .opening_book import (
+    FAMILY_LABELS,
+    OpeningBook,
+    TheoryHit,
+    family_for_first_moves,
+)
 
 
 @dataclass
@@ -18,7 +23,7 @@ class Recommendation:
     move_san: Optional[str]
     move_uci: Optional[str]
     source: str  # "theory" | "engine" | "none"
-    status: str  # message court (ex: "Dans la théorie, coup 4/10")
+    status: str
     opening_name: Optional[str] = None
     variation_name: Optional[str] = None
     idea: Optional[str] = None
@@ -26,6 +31,9 @@ class Recommendation:
     eval_pawns: Optional[float] = None
     depth: Optional[int] = None
     multi_variations: bool = False
+    is_transposition: bool = False
+    original_opening: Optional[str] = None
+    family_label: Optional[str] = None
 
 
 class GameManager:
@@ -122,6 +130,7 @@ class GameManager:
             self.last_recommendation = rec
             return rec
 
+        # ---------- TIER 1 : recherche par position FEN dans toute la base ----------
         hits = self.book.find_for_position(
             self.board, self.user_color, self.preferred_opening
         )
@@ -130,6 +139,7 @@ class GameManager:
         if playable_hits:
             best = playable_hits[0]
             multi = len({h.variation.name for h in playable_hits}) > 1
+
             try:
                 move = self.board.parse_san(best.recommended_san)
                 uci = move.uci()
@@ -137,20 +147,33 @@ class GameManager:
                 uci = None
 
             total = len(best.variation.moves_san)
-            status = f"Dans la théorie, coup {best.move_index + 1}/{total}"
+            is_transpo = bool(
+                self.preferred_opening
+                and self.preferred_opening != best.opening.name
+            )
+
+            if is_transpo:
+                status = f"Transposition détectée · {best.opening.name}"
+            else:
+                status = f"Dans la théorie · coup {best.move_index + 1}/{total}"
             if multi:
                 status += " · plusieurs variantes possibles"
 
-            # Compiler des alternatives lisibles
             alternatives: List[str] = []
             seen = set()
-            for h in playable_hits[:4]:
-                if h.recommended_san and h.recommended_san not in seen and h.recommended_san != best.recommended_san:
+            for h in playable_hits[:5]:
+                if (
+                    h.recommended_san
+                    and h.recommended_san not in seen
+                    and h.recommended_san != best.recommended_san
+                ):
                     alternatives.append(f"{h.recommended_san} ({h.variation.name})")
                     seen.add(h.recommended_san)
             for alt in best.alternatives:
                 if alt not in alternatives:
                     alternatives.append(alt)
+
+            family_label = FAMILY_LABELS.get(best.opening.family, FAMILY_LABELS["other"])
 
             rec = Recommendation(
                 move_san=best.recommended_san,
@@ -162,11 +185,18 @@ class GameManager:
                 idea=best.variation.idea or best.opening.idea,
                 alternatives=alternatives,
                 multi_variations=multi,
+                is_transposition=is_transpo,
+                original_opening=self.preferred_opening if is_transpo else None,
+                family_label=family_label,
             )
             self.last_recommendation = rec
             return rec
 
-        # Sortie de théorie -> Stockfish
+        # ---------- TIER 2 : sortie de théorie, mais on garde le contexte ----------
+        family_key = family_for_first_moves(self.history_san)
+        family_label = FAMILY_LABELS.get(family_key, FAMILY_LABELS["other"])
+        is_early = len(self.history_san) <= 14
+
         move, eval_pawns, eng_depth = self.engine.best_move(
             self.board, depth=depth, movetime_ms=movetime_ms
         )
@@ -175,13 +205,18 @@ class GameManager:
                 san = self.board.san(move)
             except Exception:
                 san = move.uci()
+            if is_early:
+                status = f"Hors livre · toujours dans la famille « {family_label} » · Stockfish"
+            else:
+                status = "Sortie de théorie · analyse Stockfish"
             rec = Recommendation(
                 move_san=san,
                 move_uci=move.uci(),
                 source="engine",
-                status="Sortie de théorie · analyse Stockfish",
+                status=status,
                 eval_pawns=eval_pawns,
                 depth=eng_depth,
+                family_label=family_label,
             )
             self.last_recommendation = rec
             return rec
@@ -190,7 +225,11 @@ class GameManager:
             move_san=None,
             move_uci=None,
             source="none",
-            status="Stockfish indisponible et plus de théorie. Configurez le moteur dans Paramètres.",
+            status=(
+                f"Position hors livre ({family_label}). "
+                "Stockfish n'est pas configuré : ouvrez les Paramètres."
+            ),
+            family_label=family_label,
         )
         self.last_recommendation = rec
         return rec
