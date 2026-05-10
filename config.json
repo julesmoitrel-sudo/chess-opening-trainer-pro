@@ -1,0 +1,11 @@
+{
+  "stockfish_path": "",
+  "engine_depth": 16,
+  "engine_movetime_ms": 800,
+  "show_explanations": true,
+  "pgn_export_dir": "",
+  "theme": "dark",
+  "board_orientation_auto": true,
+  "last_color": "white",
+  "last_opening": ""
+}
