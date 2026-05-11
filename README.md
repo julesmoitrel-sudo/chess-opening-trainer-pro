@@ -1,7 +1,8 @@
 # ♟️ Chess Opening Trainer Pro
 
-Un logiciel de bureau pour **travailler vos ouvertures d'échecs**, comprendre les
-idées derrière chaque coup, et **analyser vos parties après coup**.
+Un logiciel de bureau pour **travailler vos ouvertures d'échecs**, **affronter un
+bot qui joue de vraies variantes théoriques**, comprendre les idées derrière
+chaque coup, et **analyser vos parties après coup**.
 
 > ⚠️ **Important — fair-play**
 > Cette application est un outil d'**entraînement personnel** et d'**analyse
@@ -11,18 +12,30 @@ idées derrière chaque coup, et **analyser vos parties après coup**.
 
 ---
 
+## 🆕 Deux modes
+
+| Mode | À quoi ça sert |
+|---|---|
+| **Mode Analyse** | Vous entrez tous les coups (les vôtres et ceux de l'adversaire) et l'application vous recommande le meilleur coup, l'idée stratégique, les alternatives. Détecte les transpositions, bascule sur Stockfish hors livre. |
+| **Mode Bot d'entraînement** *(nouveau)* | Vous jouez **contre un bot** qui joue le camp adverse en suivant la **théorie de l'ouverture choisie**. Le bot peut jouer la ligne principale **ou des variantes différentes**. Après **chacun de vos coups**, l'application vous dit si c'était parfait, une alternative correcte, imprécis, ou si vous avez transposé ailleurs — avec le bon coup à jouer. |
+
+---
+
 ## 📸 À quoi ça ressemble
 
-### Écran d'accueil — vous choisissez votre couleur et votre ouverture
-![Écran d'accueil](assets/screenshots/01_accueil.png)
+### Écran d'accueil — choix du mode, de la couleur et de l'ouverture
+![Écran d'accueil](assets/screenshots/05_accueil_bot.png)
 
-### Écran principal — échiquier, coup recommandé, idée stratégique, historique
+### Mode Analyse — échiquier, coup recommandé, idée stratégique, historique
 ![Écran principal](assets/screenshots/02_ecran_principal.png)
 
-### Détection automatique des transpositions
-Si votre adversaire joue les coups dans un ordre différent, l'application
-reconnaît quand même la position et vous dit vers quelle ouverture vous
-avez transposé :
+### Mode Bot d'entraînement — vous jouez, le bot suit la théorie, et vous êtes corrigé
+![Mode Bot](assets/screenshots/06_mode_bot.png)
+
+### Le bot vous corrige : ici le joueur a joué 1...c5 au lieu de 1...e6 en Française
+![Correction du bot](assets/screenshots/07_mode_bot_correction.png)
+
+### Détection automatique des transpositions (mode Analyse)
 ![Transposition détectée](assets/screenshots/03_transposition.png)
 
 ### Fenêtre Paramètres — chemin de Stockfish, profondeur, etc.
@@ -176,39 +189,82 @@ c'est bon. Tapez `quit` et Entrée pour sortir.
 
 ## 🎮 Comment se servir de l'application
 
-1. **Au lancement**, sur l'écran d'accueil :
-   - choisissez si **vous jouez les Blancs ou les Noirs** ;
-   - choisissez **l'ouverture** que vous voulez travailler (ou "Aucune" pour
-     un mode libre) ;
-   - cliquez sur **"Commencer"**.
+### Sur l'écran d'accueil
 
-2. **Sur l'écran principal** :
-   - quand **c'est à vous de jouer**, l'application affiche le **coup
-     recommandé** (en gros à droite), avec l'**idée stratégique** et les
-     **alternatives** ;
-   - quand **c'est à votre adversaire de jouer**, entrez son coup :
-     - soit en l'**écrivant** dans le champ en bas (`e4`, `Nf3`, `O-O`, ou
-       même `e2e4`), puis "Valider" ;
-     - soit en **déplaçant directement la pièce de l'adversaire avec la
-       souris** sur l'échiquier.
+1. Choisissez le **mode** : "Mode Analyse" ou "Mode Bot d'entraînement".
+2. Choisissez si **vous jouez les Blancs ou les Noirs**.
+3. Choisissez **l'ouverture** à travailler (en mode Analyse vous pouvez aussi
+   choisir "Aucune" = mode libre).
+4. En mode Bot, choisissez en plus :
+   - la **variante** précise à viser (ou "Au hasard — le bot choisit") ;
+   - le **comportement du bot** : *Ligne principale*, *Variantes théoriques*,
+     *Aléatoire théorique* ou *Mixte*.
+5. Cliquez sur **"Commencer"** / **"Commencer contre le bot"**.
 
-3. **Boutons utiles** :
-   - **"Meilleur coup"** : joue automatiquement le coup recommandé pour vous.
-   - **"Retour"** : annule le dernier coup.
-   - **"Nouvelle partie"** : revient à l'écran d'accueil.
-   - **"Retourner l'échiquier"** : change l'orientation.
-   - **"Exporter PGN"** : sauvegarde la partie dans un fichier `.pgn`.
-   - **"Paramètres"** : règle Stockfish, la profondeur d'analyse, le dossier
-     d'export, etc.
+### Mode Analyse
 
-4. **Statuts affichés** :
-   - **"Dans la théorie · coup X/Y"** → vous suivez une ligne connue.
-   - **"Transposition détectée · …"** → l'adversaire a changé l'ordre des
-     coups mais la position correspond à une autre ouverture connue.
-   - **"Hors livre · toujours dans la famille …"** → on sort de la théorie
-     exacte, Stockfish prend le relais mais on reste dans la même famille.
-   - **"Sortie de théorie · analyse Stockfish"** → Stockfish calcule le coup.
-   - **"Coup illégal ou notation invalide"** → vous avez mal saisi un coup.
+- Quand **c'est à vous de jouer**, l'application affiche le **coup recommandé**
+  (en gros à droite), l'**idée stratégique** et les **alternatives**.
+- Quand **c'est à votre adversaire de jouer**, entrez son coup :
+  - soit en l'**écrivant** dans le champ en bas (`e4`, `Nf3`, `O-O`, `e2e4`…),
+    puis "Valider" ;
+  - soit en **déplaçant directement la pièce de l'adversaire avec la souris**.
+- Boutons : **"Meilleur coup"** (joue le coup recommandé), **"Retour"**,
+  **"Nouvelle partie"**, **"Retourner l'échiquier"**, **"Exporter PGN"**,
+  **"Paramètres"**.
+- Statuts affichés :
+  - **"Dans la théorie · coup X/Y"** → vous suivez une ligne connue.
+  - **"Transposition détectée · …"** → l'ordre des coups a changé mais la
+    position correspond à une autre ouverture connue.
+  - **"Hors livre · toujours dans la famille …"** → on quitte la théorie
+    exacte, Stockfish prend le relais mais on reste dans la même famille.
+  - **"Sortie de théorie · analyse Stockfish"** → Stockfish calcule le coup.
+
+### Mode Bot d'entraînement
+
+- **Le bot joue le camp adverse** en suivant la théorie de l'ouverture choisie.
+  Si le bot a les Blancs, il joue 1.e4 / 1.d4 / etc. tout seul.
+- **À chaque fois que c'est votre tour**, jouez votre coup (champ texte ou
+  souris). L'application le **note immédiatement** :
+  - **Coup parfait** → *"Excellent — c'est le coup théorique principal de …"* :
+    le bot répond automatiquement.
+  - **Coup théorique alternatif** → *"Coup correct — c'est une variante
+    théorique connue (…)."* : le bot répond automatiquement.
+  - **Coup imprécis** → *"Ce coup est légal, mais il sort de la variante
+    choisie. Le coup recommandé est : …"*. On vous propose alors
+    **"Continuer quand même"** ou **"Annuler ce coup"** (le bon coup est
+    surligné sur l'échiquier).
+  - **Transposition** → *"Coup légal, mais il ne correspond pas à … . Il
+    transpose plutôt vers : … (…). Le coup théorique attendu était : …"*.
+    Idem : "Continuer quand même" / "Annuler ce coup".
+  - **Hors théorie** → *"Fin de la ligne théorique connue — tu peux continuer
+    (Stockfish prend le relais) ou rejouer la variante."*
+  - **Coup illégal** → message d'erreur, rien n'est joué.
+- **Le bot ne joue pas toujours la même ligne** : selon le comportement choisi,
+  il peut bifurquer vers d'autres variantes théoriques (ex. en Française : il
+  peut jouer la variante d'avance, d'échange, Tarrasch, Winawer ou classique).
+  Quand il bifurque, il vous le dit : *"Le bot a choisi : Variante d'avance."*
+- Boutons : **"Voir le bon coup"** (affiche/surligne le coup théorique sans le
+  jouer), **"Revenir en arrière"** (annule votre dernier coup et celui du bot),
+  **"Rejouer la variante"** (recommence la même session), **"Nouvelle session"**,
+  **"Retourner l'échiquier"**, **"Exporter PGN"**, **"Paramètres"**.
+- **Stockfish n'intervient qu'en dernier recours** : seulement quand la ligne
+  théorique est terminée ou qu'aucune ouverture connue ne correspond plus.
+
+#### Exemple (Noirs + Défense Française, bot = Variantes)
+
+```
+Bot : 1. e4
+Vous : 1...e6   → "Excellent — c'est le coup théorique principal de la Défense Française."
+Bot : 2. d4
+Vous : 2...d5   → "Coup parfait."
+Bot : 3. e5     → "Le bot a choisi : Variante d'avance."
+Vous : 3...c5   → "Coup parfait."
+
+(si à la place vous jouez 3...Nc6 :)
+Vous : 3...Nc6  → "Ce coup est légal, mais il sort de la variante choisie.
+                  Le coup recommandé est : c5."   → [Continuer quand même] [Annuler ce coup]
+```
 
 ---
 
@@ -294,7 +350,8 @@ chess-opening-trainer-pro/
 │   ├── board_widget.py    # l'échiquier (pièces SVG, drag & drop, surlignages)
 │   ├── engine.py          # détection et pilotage de Stockfish
 │   ├── opening_book.py    # chargement + indexation des ouvertures par position
-│   ├── game_manager.py    # logique de la partie et des recommandations
+│   ├── game_manager.py    # logique de la partie et des recommandations (mode Analyse)
+│   ├── training_bot.py    # le bot théorique + évaluation pédagogique des coups (mode Bot)
 │   ├── settings.py        # lecture/écriture de config.json
 │   └── utils.py
 └── assets/

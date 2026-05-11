@@ -113,6 +113,7 @@ class BoardWidget(QWidget):
         self._board: chess.Board = chess.Board()
         self._orientation_white_bottom: bool = True
         self._show_coords: bool = True
+        self._input_enabled: bool = True
 
         # Interaction state
         self._selected_square: Optional[int] = None
@@ -147,6 +148,15 @@ class BoardWidget(QWidget):
 
     def set_recommended_move(self, move: Optional[chess.Move]) -> None:
         self._recommended_move = move
+        self.update()
+
+    def set_input_enabled(self, enabled: bool) -> None:
+        self._input_enabled = enabled
+        if not enabled:
+            self._dragging_from = None
+            self._drag_pos = None
+            self._legal_targets.clear()
+            self._selected_square = None
         self.update()
 
     # ---------- Geometry ----------
@@ -191,7 +201,7 @@ class BoardWidget(QWidget):
     # ---------- Mouse ----------
 
     def mousePressEvent(self, event: QMouseEvent) -> None:  # noqa: N802
-        if event.button() != Qt.LeftButton:
+        if event.button() != Qt.LeftButton or not self._input_enabled:
             return
         sq = self._square_at(event.position())
         if sq is None:
