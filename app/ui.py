@@ -491,9 +491,18 @@ class MainScreen(QWidget):
         left.addWidget(info_title)
 
         self.label_color = QLabel("Couleur : —")
-        self.label_opening = QLabel("Ouverture : —")
+        self.label_opening = QLabel("Ouverture choisie : —")
         self.label_variation = QLabel("Variante : —")
-        for w in (self.label_color, self.label_opening, self.label_variation):
+        self.label_family = QLabel("Famille : —")
+        self.label_transpo = QLabel("")
+        self.label_transpo.setStyleSheet("color: #E5C27A; font-style: italic;")
+        for w in (
+            self.label_color,
+            self.label_opening,
+            self.label_variation,
+            self.label_family,
+            self.label_transpo,
+        ):
             w.setWordWrap(True)
             left.addWidget(w)
 
@@ -620,8 +629,10 @@ class MainScreen(QWidget):
         self.board_widget.set_last_move(None)
         self.board_widget.set_recommended_move(None)
         self.label_color.setText(f"Couleur : {'Blancs' if user_color == chess.WHITE else 'Noirs'}")
-        self.label_opening.setText(f"Ouverture : {opening_name or 'Libre'}")
+        self.label_opening.setText(f"Ouverture choisie : {opening_name or 'Libre'}")
         self.label_variation.setText("Variante : —")
+        self.label_family.setText("Famille : —")
+        self.label_transpo.setText("")
         self.history_view.setPlainText("")
         self.move_input.clear()
         self._update_status_chip("Prêt", "info")
@@ -709,10 +720,16 @@ class MainScreen(QWidget):
             self.rec_move.setText("—")
 
         if rec.source == "theory":
-            self.rec_source.setText("Source : Base d'ouvertures")
+            label = "Source : Transposition" if rec.is_transposition else "Source : Base d'ouvertures"
+            self.rec_source.setText(label)
             self.rec_source.setStyleSheet("background:#143324; border:1px solid #1F5A40; color:#7AE5B0; border-radius:999px; padding:4px 12px;")
-            self.label_opening.setText(f"Ouverture : {rec.opening_name or '—'}")
             self.label_variation.setText(f"Variante : {rec.variation_name or '—'}")
+            if rec.is_transposition and rec.original_opening:
+                self.label_transpo.setText(
+                    f"⇄ Transposition : {rec.original_opening} → {rec.opening_name}"
+                )
+            else:
+                self.label_transpo.setText("")
         elif rec.source == "engine":
             extra = ""
             if rec.eval_pawns is not None:
@@ -721,9 +738,18 @@ class MainScreen(QWidget):
                 extra += f"  ·  profondeur {rec.depth}"
             self.rec_source.setText(f"Source : Stockfish{extra}")
             self.rec_source.setStyleSheet("background:#142133; border:1px solid #1F3A5A; color:#7AB6E5; border-radius:999px; padding:4px 12px;")
+            self.label_variation.setText("Variante : hors livre")
+            self.label_transpo.setText("")
         else:
             self.rec_source.setText("Source : —")
             self.rec_source.setStyleSheet("background:#332714; border:1px solid #5A4220; color:#E5C27A; border-radius:999px; padding:4px 12px;")
+            self.label_transpo.setText("")
+
+        # Famille d'ouverture
+        if rec.family_label:
+            self.label_family.setText(f"Famille : {rec.family_label}")
+        else:
+            self.label_family.setText("Famille : —")
 
         if self.settings.get("show_explanations", True) and rec.idea:
             self.rec_idea.setText(rec.idea)

@@ -41,6 +41,45 @@ class Opening:
     eco: str
     idea: str
     variations: List[Variation]
+    family: str = "other"
+
+
+FAMILY_LABELS: Dict[str, str] = {
+    "open_games": "Débuts ouverts (1.e4 e5)",
+    "semi_open": "Débuts semi-ouverts (1.e4 ...)",
+    "closed_games": "Débuts fermés (1.d4 d5)",
+    "indian": "Défenses indiennes (1.d4 Nf6)",
+    "flexible_d4": "Débuts flexibles 1.d4",
+    "english": "Anglaise (1.c4)",
+    "reti": "Réti (1.Nf3)",
+    "flank": "Ouvertures de flanc",
+    "other": "Théorie d'ouverture",
+}
+
+
+def family_for_first_moves(history_san: List[str]) -> str:
+    """Devine la famille d'ouverture à partir des 1-2 premiers coups SAN."""
+    if not history_san:
+        return "other"
+    first = history_san[0]
+    second = history_san[1] if len(history_san) > 1 else None
+    if first == "e4":
+        if second == "e5":
+            return "open_games"
+        return "semi_open"
+    if first == "d4":
+        if second == "d5":
+            return "closed_games"
+        if second == "Nf6":
+            return "indian"
+        return "flexible_d4"
+    if first == "c4":
+        return "english"
+    if first == "Nf3":
+        return "reti"
+    if first in ("f4", "b3", "g3", "b4", "Nc3"):
+        return "flank"
+    return "other"
 
 
 @dataclass
@@ -98,6 +137,7 @@ class OpeningBook:
                     eco=op.get("eco", ""),
                     idea=op.get("idea", ""),
                     variations=variations,
+                    family=op.get("family", "other"),
                 )
                 self.openings.append(opening)
                 self._index_opening(opening)

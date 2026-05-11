@@ -4,6 +4,7 @@
       "name": "Partie Italienne",
       "color": "white",
       "eco": "C50-C54",
+      "family": "open_games",
       "idea": "Développer rapidement les pièces mineures vers le centre, contrôler d4/e5 et préparer le roque. Le fou en c4 vise f7, le point faible de la position noire.",
       "variations": [
         {
@@ -35,6 +36,12 @@
           "moves": ["e4", "e5", "Nf3", "Nc6", "Bc4", "Bc5", "O-O", "Nf6", "d3", "d6", "c3", "a6", "Bb3", "Ba7", "Nbd2", "O-O"],
           "idea": "Plan typique moderne : roque, Re1, Nbd2-f1-g3 et expansion lente.",
           "alternatives": ["a4", "h3 d4"]
+        },
+        {
+          "name": "Italienne - vs ...Be7 (Hungarian)",
+          "moves": ["e4", "e5", "Nf3", "Nc6", "Bc4", "Be7", "d4", "exd4", "Nxd4", "Nf6", "Nc3", "O-O", "O-O", "d6"],
+          "idea": "Réponse calme des Noirs (Hungarian Defense). Les Blancs prennent l'espace au centre.",
+          "alternatives": ["d3 lent", "Nc3 calme"]
         }
       ]
     },
@@ -42,6 +49,7 @@
       "name": "Partie Espagnole",
       "color": "white",
       "eco": "C60-C99",
+      "family": "open_games",
       "idea": "Mettre la pression sur le cavalier en c6 pour affaiblir le centre noir. L'une des ouvertures les plus profondes du jeu d'échecs.",
       "variations": [
         {
@@ -73,6 +81,12 @@
           "moves": ["e4", "e5", "Nf3", "Nc6", "Bb5", "f5", "Nc3", "fxe4", "Nxe4", "d5", "Nxe5", "dxe4", "Nxc6", "Qg5", "Qe2", "Nf6"],
           "idea": "Réponse agressive et risquée par les Noirs : ils ouvrent f5 immédiatement pour créer du contre-jeu.",
           "alternatives": ["d3 ligne tranquille", "exf5 acceptation"]
+        },
+        {
+          "name": "Espagnole - défense Steinitz différée",
+          "moves": ["e4", "e5", "Nf3", "Nc6", "Bb5", "a6", "Ba4", "d6", "c3", "Bd7", "d4", "Nf6", "O-O", "Be7"],
+          "idea": "Système solide pour les Noirs avec ...d6 et ...Bd7.",
+          "alternatives": ["Nf6 Morphy classique", "g6 plan moderne"]
         }
       ]
     },
@@ -80,6 +94,7 @@
       "name": "Partie Écossaise",
       "color": "white",
       "eco": "C44-C45",
+      "family": "open_games",
       "idea": "Ouvrir le centre tôt avec d4 pour libérer les pièces. Style direct, idéal pour les joueurs tactiques.",
       "variations": [
         {
@@ -118,6 +133,7 @@
       "name": "Gambit Dame",
       "color": "white",
       "eco": "D06-D69",
+      "family": "closed_games",
       "idea": "Offrir le pion c4 pour dominer le centre avec e4 si les Noirs prennent. La base de toute la stratégie de pions classique.",
       "variations": [
         {
@@ -145,10 +161,22 @@
           "alternatives": ["dxc4 Catalane ouverte", "Bb4+"]
         },
         {
+          "name": "Catalane ouverte",
+          "moves": ["d4", "Nf6", "c4", "e6", "g3", "d5", "Bg2", "dxc4", "Nf3", "Be7", "O-O", "O-O", "Qc2", "a6", "Qxc4", "b5"],
+          "idea": "Les Noirs prennent le pion c4 ; les Blancs récupèrent par Qxc4 avec un long jeu de pression.",
+          "alternatives": ["Qa4+", "a4 lutte pour b5"]
+        },
+        {
           "name": "Système Colle (transposable)",
           "moves": ["d4", "d5", "Nf3", "Nf6", "e3", "e6", "Bd3", "c5", "c3", "Nc6", "Nbd2", "Bd6", "O-O", "O-O", "Re1", "Qc7"],
           "idea": "Système solide en triangle e3-d4-c3, plan attaque-roi typique.",
           "alternatives": ["b3 Système Zukertort", "c4 transposition vers QGD"]
+        },
+        {
+          "name": "GD - Défense Tchigorine",
+          "moves": ["d4", "d5", "c4", "Nc6", "Nf3", "Bg4", "Nc3", "e6", "Bf4", "Bb4", "e3", "Nf6", "h3", "Bh5"],
+          "idea": "Réponse originale : ...Nc6 met le clouer sur d4. Position riche en idées.",
+          "alternatives": ["cxd5", "Qb3 piège"]
         }
       ]
     },
@@ -156,6 +184,7 @@
       "name": "Système de Londres",
       "color": "white",
       "eco": "D02-A48",
+      "family": "closed_games",
       "idea": "Mise en place rapide et solide avec Bf4, e3, Nf3, Bd3, c3. Polyvalent, peu théorique, redoutable.",
       "variations": [
         {
@@ -187,6 +216,12 @@
           "moves": ["d4", "Nf6", "Nf3", "d5", "Bf4", "c5", "e3", "Nc6", "c3", "e6", "Nbd2", "Bd6", "Bg3", "O-O", "Bd3", "b6"],
           "idea": "Schéma classique le plus fréquent dans le système de Londres.",
           "alternatives": ["h3", "Ne5 plan offensif"]
+        },
+        {
+          "name": "Londres vs ...Bf5 (Kar-style)",
+          "moves": ["d4", "d5", "Bf4", "Bf5", "Nf3", "e6", "e3", "Nf6", "c4", "c6", "Qb3", "Qb6", "Nc3", "Nbd7"],
+          "idea": "Les Noirs imitent et sortent leur fou avant de fermer. Les Blancs harcèlent en b3.",
+          "alternatives": ["c3 calme", "Bd3"]
         }
       ]
     },
@@ -194,6 +229,7 @@
       "name": "Ouverture Anglaise",
       "color": "white",
       "eco": "A10-A39",
+      "family": "english",
       "idea": "Contrôler d5 avec c4 et fianchetter le fou en g2. Style stratégique, hyper-moderne.",
       "variations": [
         {
@@ -219,6 +255,24 @@
           "moves": ["c4", "Nf6", "Nc3", "e6", "Nf3", "d5", "d4", "c5", "cxd5", "Nxd5", "e3", "Nc6", "Bd3", "Be7", "O-O", "O-O"],
           "idea": "Transposition vers une structure type Tarrasch.",
           "alternatives": ["e4 Mikenas", "g3"]
+        },
+        {
+          "name": "Anglaise vs 1...e6 (Mikenas)",
+          "moves": ["c4", "e6", "Nc3", "Nf6", "e4", "d5", "e5", "d4", "exf6", "dxc3", "bxc3", "Qxf6"],
+          "idea": "L'attaque Mikenas-Carls : ligne très tendue où les structures se transforment vite.",
+          "alternatives": ["Nf3 lent", "g3 transposition Catalane"]
+        },
+        {
+          "name": "Anglaise vs 1...Nf6 (Anti-Indien)",
+          "moves": ["c4", "Nf6", "Nc3", "g6", "g3", "Bg7", "Bg2", "O-O", "Nf3", "d6", "O-O", "e5", "d3", "Nc6"],
+          "idea": "Permettre une Est-Indienne renversée. Plan : b4 et a4 pour l'aile dame.",
+          "alternatives": ["d4 transposition KID", "e4"]
+        },
+        {
+          "name": "Anglaise vs 1...g6",
+          "moves": ["c4", "g6", "Nc3", "Bg7", "g3", "e5", "Bg2", "Ne7", "d3", "O-O", "e3", "d6", "Nge2", "c6"],
+          "idea": "Structure flexible. Les Blancs reprennent l'initiative avec un plan f4 possible.",
+          "alternatives": ["e4 Botvinnik", "Nf3 transposition"]
         }
       ]
     },
@@ -226,6 +280,7 @@
       "name": "Attaque Viennoise",
       "color": "white",
       "eco": "C25-C29",
+      "family": "open_games",
       "idea": "Sortir Nc3 puis attaquer rapidement le centre avec f4. Tactique et agressif.",
       "variations": [
         {
@@ -243,9 +298,37 @@
       ]
     },
     {
+      "name": "Gambit du Roi",
+      "color": "white",
+      "eco": "C30-C39",
+      "family": "open_games",
+      "idea": "Sacrifice romantique du pion f pour ouvrir la position et chasser le roi noir. Très ancien et toujours dangereux.",
+      "variations": [
+        {
+          "name": "Gambit accepté - Variante Kieseritzky",
+          "moves": ["e4", "e5", "f4", "exf4", "Nf3", "g5", "h4", "g4", "Ne5", "Nf6", "d4", "d6", "Nd3", "Nxe4"],
+          "idea": "Variante critique du gambit accepté. Le cavalier en e5 est central.",
+          "alternatives": ["Bc4 ligne classique", "Nc3 ligne moderne"]
+        },
+        {
+          "name": "Gambit accepté - ligne classique Bc4",
+          "moves": ["e4", "e5", "f4", "exf4", "Nf3", "Be7", "Bc4", "Bh4+", "Kf1", "d6", "d4", "Nf6", "Nc3", "O-O"],
+          "idea": "Les Noirs jouent solidement avec ...Be7 et ...d6.",
+          "alternatives": ["g5", "d5 contre-gambit"]
+        },
+        {
+          "name": "Gambit décliné - Falkbeer",
+          "moves": ["e4", "e5", "f4", "d5", "exd5", "e4", "d3", "Nf6", "Nd2", "exd3", "Bxd3", "Nxd5"],
+          "idea": "Refus actif : les Noirs rendent le pion mais ouvrent rapidement leur jeu.",
+          "alternatives": ["Bc5 décliné", "Qe7"]
+        }
+      ]
+    },
+    {
       "name": "Défense Française",
       "color": "black",
       "eco": "C00-C19",
+      "family": "semi_open",
       "idea": "Construire une chaîne de pions e6-d5 et contre-attaquer avec c5 sur le centre blanc. Solide et stratégique.",
       "variations": [
         {
@@ -283,6 +366,12 @@
           "moves": ["e4", "e6", "d4", "d5", "Nc3", "dxe4", "Nxe4", "Nd7", "Nf3", "Ngf6", "Nxf6+", "Nxf6", "Bd3", "c5", "O-O", "cxd4"],
           "idea": "Simplification du centre. Position légèrement passive mais très solide.",
           "alternatives": ["Be7 simple", "h6"]
+        },
+        {
+          "name": "Française - Roi roi (Système du Roi)",
+          "moves": ["e4", "e6", "Nf3", "d5", "Nc3", "Nf6", "e5", "Nfd7", "d4", "c5", "dxc5", "Nc6"],
+          "idea": "Setup hybride : si les Blancs jouent Nf3 puis Nc3, transposition vers la classique.",
+          "alternatives": ["d4 immédiat", "exd5 transposition"]
         }
       ]
     },
@@ -290,6 +379,7 @@
       "name": "Défense Caro-Kann",
       "color": "black",
       "eco": "B10-B19",
+      "family": "semi_open",
       "idea": "Contester e4 avec c6 et d5, sans bloquer le fou de cases blanches. Une des défenses les plus solides.",
       "variations": [
         {
@@ -321,6 +411,12 @@
           "moves": ["e4", "c6", "Nc3", "d5", "Nf3", "Bg4", "h3", "Bxf3", "Qxf3", "Nf6", "d3", "e6", "g3", "Bb4", "Bd2", "d4"],
           "idea": "Les Blancs forcent l'échange de fou contre cavalier. Position calme mais riche.",
           "alternatives": ["dxe4", "Nf6"]
+        },
+        {
+          "name": "Variante Bronstein-Larsen",
+          "moves": ["e4", "c6", "d4", "d5", "Nc3", "dxe4", "Nxe4", "Nf6", "Nxf6+", "gxf6", "c3", "Bf5", "Nf3", "Nd7"],
+          "idea": "Les Noirs acceptent un double pion mais ouvrent la colonne g pour l'attaque.",
+          "alternatives": ["exf6 classique", "Bg6"]
         }
       ]
     },
@@ -328,6 +424,7 @@
       "name": "Défense Sicilienne",
       "color": "black",
       "eco": "B20-B99",
+      "family": "semi_open",
       "idea": "Lutter pour d4 dès le coup 1 avec c5. La défense la plus tranchante contre 1.e4.",
       "variations": [
         {
@@ -371,6 +468,24 @@
           "moves": ["e4", "c5", "Nc3", "Nc6", "g3", "g6", "Bg2", "Bg7", "d3", "d6", "f4", "e6", "Nf3", "Nge7", "O-O", "O-O"],
           "idea": "Approche calme et stratégique. Plan blanc : f4-f5 et attaque-roi.",
           "alternatives": ["Be3 plan agressif", "Nge2 Spassky"]
+        },
+        {
+          "name": "Sicilienne accélérée Dragon",
+          "moves": ["e4", "c5", "Nf3", "Nc6", "d4", "cxd4", "Nxd4", "g6", "Nc3", "Bg7", "Be3", "Nf6", "Bc4", "O-O"],
+          "idea": "Saute la phase d6. Permet ...d5 d'un seul coup.",
+          "alternatives": ["c4 Maroczy Bind", "f3 anti-dragon"]
+        },
+        {
+          "name": "Anti-Sicilienne Rossolimo",
+          "moves": ["e4", "c5", "Nf3", "Nc6", "Bb5", "g6", "O-O", "Bg7", "c3", "Nf6", "Re1", "O-O", "h3", "d6"],
+          "idea": "Setup positionnel des Blancs : Bb5xc6 pour casser la structure noire.",
+          "alternatives": ["Bxc6", "d4 transposition"]
+        },
+        {
+          "name": "Anti-Sicilienne Moscou",
+          "moves": ["e4", "c5", "Nf3", "d6", "Bb5+", "Bd7", "Bxd7+", "Qxd7", "O-O", "Nf6", "Re1", "Nc6", "c3", "e6"],
+          "idea": "Échange immédiat du fou de cases blanches. Jeu très calme.",
+          "alternatives": ["Nbd7", "c4 Maroczy"]
         }
       ]
     },
@@ -378,6 +493,7 @@
       "name": "Défense Scandinave",
       "color": "black",
       "eco": "B01",
+      "family": "semi_open",
       "idea": "Échanger immédiatement d5 contre e4 pour activer la dame. Simple et efficace.",
       "variations": [
         {
@@ -391,6 +507,12 @@
           "moves": ["e4", "d5", "exd5", "Nf6", "d4", "Nxd5", "Nf3", "g6", "c4", "Nb6", "Nc3", "Bg7", "Be3", "O-O", "Qd2", "Nc6"],
           "idea": "Récupération du pion plus tard pour un développement harmonieux.",
           "alternatives": ["Bf5", "c6 Pytel"]
+        },
+        {
+          "name": "Scandinave Qd6",
+          "moves": ["e4", "d5", "exd5", "Qxd5", "Nc3", "Qd6", "d4", "Nf6", "Nf3", "a6", "g3", "b5", "Bg2", "Bb7"],
+          "idea": "La dame plus active, plan ...a6, ...b5 pour le contre-jeu d'aile dame.",
+          "alternatives": ["Qa5", "Qd8 ligne tranquille"]
         }
       ]
     },
@@ -398,6 +520,7 @@
       "name": "Défense Pirc",
       "color": "black",
       "eco": "B07-B09",
+      "family": "semi_open",
       "idea": "Laisser les Blancs occuper le centre puis le contre-attaquer avec ...c5 ou ...e5. Hyper-moderne.",
       "variations": [
         {
@@ -411,6 +534,87 @@
           "moves": ["e4", "d6", "d4", "Nf6", "Nc3", "g6", "f4", "Bg7", "Nf3", "O-O", "Bd3", "Nc6", "O-O", "Bg4", "Be3", "e5"],
           "idea": "Setup pioniers f4-e4-d4 redoutable. Les Noirs doivent réagir vite.",
           "alternatives": ["c5 immédiat", "Na6 plan moderne"]
+        },
+        {
+          "name": "Pirc - 150 attack",
+          "moves": ["e4", "d6", "d4", "Nf6", "Nc3", "g6", "Be3", "Bg7", "Qd2", "c6", "f3", "b5", "Nge2", "Nbd7"],
+          "idea": "L'attaque en 150 : Be3, Qd2, f3 et roque long pour foncer sur l'aile-roi.",
+          "alternatives": ["Bh6", "h4 attaque rapide"]
+        }
+      ]
+    },
+    {
+      "name": "Défense Moderne",
+      "color": "black",
+      "eco": "B06",
+      "family": "semi_open",
+      "idea": "Attendre avec ...g6 et ...Bg7 avant de lancer un contre-jeu hyper-moderne. Très flexible.",
+      "variations": [
+        {
+          "name": "Moderne classique",
+          "moves": ["e4", "g6", "d4", "Bg7", "Nc3", "d6", "Nf3", "a6", "a4", "Nf6", "Be2", "O-O", "O-O", "Nc6"],
+          "idea": "Setup type Pirc avec attente sur l'aile dame. Les Noirs choisissent ...c5 ou ...e5 plus tard.",
+          "alternatives": ["c6 lent", "Nf6 transposition Pirc"]
+        },
+        {
+          "name": "Moderne - Averbakh",
+          "moves": ["e4", "g6", "d4", "Bg7", "c4", "d6", "Nc3", "Nf6", "Be2", "O-O", "Bg5", "h6", "Be3", "e5"],
+          "idea": "Transposition vers Est-Indienne ; les Blancs gardent l'avantage spatial.",
+          "alternatives": ["c5 Benoni", "Nbd7"]
+        },
+        {
+          "name": "Moderne contre 1.d4",
+          "moves": ["d4", "g6", "c4", "Bg7", "Nc3", "d6", "e4", "Nf6", "Be2", "O-O", "Nf3", "e5"],
+          "idea": "Transposition directe vers Est-Indienne classique.",
+          "alternatives": ["Nc6", "c5 contre-attaque"]
+        }
+      ]
+    },
+    {
+      "name": "Défense Alekhine",
+      "color": "black",
+      "eco": "B02-B05",
+      "family": "semi_open",
+      "idea": "Provoquer l'avance des pions blancs par ...Nf6 immédiat, pour les attaquer ensuite. Hyper-moderne.",
+      "variations": [
+        {
+          "name": "Alekhine - Variante des quatre pions",
+          "moves": ["e4", "Nf6", "e5", "Nd5", "d4", "d6", "c4", "Nb6", "f4", "dxe5", "fxe5", "Nc6", "Be3", "Bf5"],
+          "idea": "Tabiya où les Blancs ont un centre de pions massif mais surextendu.",
+          "alternatives": ["Nf3 ligne moderne", "exd6 simplification"]
+        },
+        {
+          "name": "Alekhine - Variante moderne",
+          "moves": ["e4", "Nf6", "e5", "Nd5", "d4", "d6", "Nf3", "g6", "Bc4", "Nb6", "Bb3", "Bg7", "Qe2", "Nc6"],
+          "idea": "Plan calme des Blancs ; les Noirs vont chercher ...c5 et ...Bg4.",
+          "alternatives": ["Be7 classique", "dxe5"]
+        },
+        {
+          "name": "Alekhine - Variante d'échange",
+          "moves": ["e4", "Nf6", "e5", "Nd5", "d4", "d6", "c4", "Nb6", "exd6", "exd6", "Nc3", "Be7", "Bd3", "O-O"],
+          "idea": "Position symétrique mais avec un peu plus d'espace pour les Blancs.",
+          "alternatives": ["cxd6 ligne tendue", "Nf3"]
+        }
+      ]
+    },
+    {
+      "name": "Défense Owen",
+      "color": "black",
+      "eco": "B00",
+      "family": "semi_open",
+      "idea": "Fianchetto immédiat du fou en b7. Système peu joué mais surprenant.",
+      "variations": [
+        {
+          "name": "Owen vs 1.e4",
+          "moves": ["e4", "b6", "d4", "Bb7", "Nc3", "e6", "Nf3", "Bb4", "Bd3", "Nf6", "O-O", "O-O"],
+          "idea": "Setup hyper-moderne où les Noirs cherchent ...d5 ou ...c5 plus tard.",
+          "alternatives": ["f4 ligne autrichienne", "Bd2"]
+        },
+        {
+          "name": "Owen vs 1.d4 (English Defence)",
+          "moves": ["d4", "b6", "c4", "Bb7", "Nc3", "e6", "e4", "Bb4", "Bd3", "f5", "exf5", "Bxg2"],
+          "idea": "Tabiya tranchante : les Noirs sacrifient des pions pour l'activité.",
+          "alternatives": ["d3 calme", "Nf3 transposition"]
         }
       ]
     },
@@ -418,6 +622,7 @@
       "name": "1...e5 classique",
       "color": "black",
       "eco": "C20-C50",
+      "family": "open_games",
       "idea": "Réponse classique : ouvrir le jeu et lutter pour le centre symétriquement. Base théorique solide.",
       "variations": [
         {
@@ -431,6 +636,12 @@
           "moves": ["e4", "e5", "Nf3", "d6", "d4", "exd4", "Nxd4", "Nf6", "Nc3", "Be7", "Be2", "O-O", "O-O", "c5", "Nf3", "Nc6"],
           "idea": "Setup hérisson noir, solide mais passif.",
           "alternatives": ["Nd7 Hanham", "f5 piège"]
+        },
+        {
+          "name": "Défense des trois cavaliers",
+          "moves": ["e4", "e5", "Nf3", "Nc6", "Nc3", "Nf6", "Bb5", "Bb4", "O-O", "O-O", "d3", "d6", "Bg5", "Bxc3"],
+          "idea": "Variante symétrique. Les pièces se développent naturellement.",
+          "alternatives": ["d4 ligne d'échange", "Bc4 transposition"]
         }
       ]
     },
@@ -438,6 +649,7 @@
       "name": "Gambit Dame refusé (Noirs)",
       "color": "black",
       "eco": "D30-D69",
+      "family": "closed_games",
       "idea": "Refuser le pion c4 et garder une structure solide e6-d5. Le choix des champions du monde.",
       "variations": [
         {
@@ -457,6 +669,18 @@
           "moves": ["d4", "d5", "c4", "e6", "Nc3", "Nf6", "Bg5", "Be7", "e3", "O-O", "Nf3", "h6", "Bh4", "Ne4", "Bxe7", "Qxe7"],
           "idea": "Simplification rapide. Position égale mais simple à jouer.",
           "alternatives": ["Nd7 orthodoxe", "b6 Tartakower"]
+        },
+        {
+          "name": "Variante Cambridge Springs",
+          "moves": ["d4", "d5", "c4", "e6", "Nc3", "Nf6", "Bg5", "Nbd7", "e3", "c6", "Nf3", "Qa5", "Nd2", "Bb4"],
+          "idea": "Piège classique avec Qa5 qui menace Bg5 et c3.",
+          "alternatives": ["dxc4", "Be7 simple"]
+        },
+        {
+          "name": "QGD - Tarrasch",
+          "moves": ["d4", "d5", "c4", "e6", "Nc3", "c5", "cxd5", "exd5", "Nf3", "Nc6", "g3", "Nf6", "Bg2", "Be7"],
+          "idea": "Les Noirs acceptent un pion isolé pour avoir des pièces actives.",
+          "alternatives": ["e3", "Bg5"]
         }
       ]
     },
@@ -464,6 +688,7 @@
       "name": "Défense Slave",
       "color": "black",
       "eco": "D10-D19",
+      "family": "closed_games",
       "idea": "Soutenir d5 avec c6 sans bloquer le fou de cases blanches. Très solide.",
       "variations": [
         {
@@ -490,6 +715,7 @@
       "name": "Défense Semi-Slave",
       "color": "black",
       "eco": "D43-D49",
+      "family": "closed_games",
       "idea": "Combiner ...c6 et ...e6 pour une grande solidité avant des plans agressifs (Meran, Botvinnik).",
       "variations": [
         {
@@ -510,6 +736,7 @@
       "name": "Défense Indienne du Roi",
       "color": "black",
       "eco": "E60-E99",
+      "family": "indian",
       "idea": "Laisser les Blancs prendre le centre puis attaquer à l'aile-roi avec ...f5. Très combative.",
       "variations": [
         {
@@ -548,6 +775,7 @@
       "name": "Défense Nimzo-Indienne",
       "color": "black",
       "eco": "E20-E59",
+      "family": "indian",
       "idea": "Clouer le cavalier en c3 pour saper le contrôle de e4. Stratégie hyper-moderne raffinée.",
       "variations": [
         {
@@ -567,6 +795,168 @@
           "moves": ["d4", "Nf6", "c4", "e6", "Nc3", "Bb4", "a3", "Bxc3+", "bxc3", "c5", "e3", "Nc6", "Bd3", "O-O", "Ne2", "b6"],
           "idea": "Doublement des pions volontaire pour un centre actif. Style Botvinnik.",
           "alternatives": ["d6 plan structurel", "d5"]
+        },
+        {
+          "name": "Nimzo - Variante Leningrad",
+          "moves": ["d4", "Nf6", "c4", "e6", "Nc3", "Bb4", "Bg5", "h6", "Bh4", "c5", "d5", "d6", "e3", "Bxc3+"],
+          "idea": "Système original avec Bg5. Les Noirs préparent un Benoni-style modifié.",
+          "alternatives": ["Qc2", "f3 ligne Kasparov"]
+        }
+      ]
+    },
+    {
+      "name": "Défense Ouest-Indienne",
+      "color": "black",
+      "eco": "E12-E19",
+      "family": "indian",
+      "idea": "Fianchetto en b7 pour contrôler les cases blanches centrales. Système ultra-solide.",
+      "variations": [
+        {
+          "name": "Ligne principale",
+          "moves": ["d4", "Nf6", "c4", "e6", "Nf3", "b6", "g3", "Bb7", "Bg2", "Be7", "O-O", "O-O", "Nc3", "Ne4", "Qc2", "Nxc3"],
+          "idea": "Symétrie sur la grande diagonale. Plan ...c5 ou ...d5 plus tard.",
+          "alternatives": ["a3 Petrosian", "Bd2"]
+        },
+        {
+          "name": "Variante Petrosian",
+          "moves": ["d4", "Nf6", "c4", "e6", "Nf3", "b6", "a3", "Bb7", "Nc3", "d5", "cxd5", "Nxd5", "e3", "Be7", "Bd3", "O-O"],
+          "idea": "a3 empêche ...Bb4 et garde les cases noires.",
+          "alternatives": ["Nc3 immédiat", "Bf4"]
+        }
+      ]
+    },
+    {
+      "name": "Défense Bogo-Indienne",
+      "color": "black",
+      "eco": "E11",
+      "family": "indian",
+      "idea": "Clouer le fou en b4+ contre le développement Nf3 blanc. Approche flexible et solide.",
+      "variations": [
+        {
+          "name": "Bogo - ligne principale Bd2",
+          "moves": ["d4", "Nf6", "c4", "e6", "Nf3", "Bb4+", "Bd2", "Qe7", "g3", "O-O", "Bg2", "d6", "O-O", "Nbd7", "Nc3", "Bxc3"],
+          "idea": "Plan ...e5 pour libérer le jeu. Position solide pour les Noirs.",
+          "alternatives": ["Nbd2", "Nc3 transposition Nimzo"]
+        },
+        {
+          "name": "Bogo - Bxd2+",
+          "moves": ["d4", "Nf6", "c4", "e6", "Nf3", "Bb4+", "Bd2", "Bxd2+", "Qxd2", "O-O", "g3", "d5", "Bg2", "c6"],
+          "idea": "Échange immédiat. Position symétrique avec un léger plus blanc.",
+          "alternatives": ["Qe7 reprise dame", "a5"]
+        },
+        {
+          "name": "Bogo - 4.Nbd2",
+          "moves": ["d4", "Nf6", "c4", "e6", "Nf3", "Bb4+", "Nbd2", "O-O", "a3", "Be7", "e4", "d5", "e5", "Nfd7"],
+          "idea": "Évite l'échange. Centre fort pour les Blancs.",
+          "alternatives": ["Bd2 standard"]
+        }
+      ]
+    },
+    {
+      "name": "Défense Grünfeld",
+      "color": "black",
+      "eco": "D70-D99",
+      "family": "indian",
+      "idea": "Contre-attaque hyper-moderne du centre blanc avec ...d5 et ...Bg7. Très tranchant.",
+      "variations": [
+        {
+          "name": "Variante d'échange",
+          "moves": ["d4", "Nf6", "c4", "g6", "Nc3", "d5", "cxd5", "Nxd5", "e4", "Nxc3", "bxc3", "Bg7", "Bc4", "c5", "Ne2", "Nc6"],
+          "idea": "Tabiya principale : centre fort blanc, contre-attaque noire avec ...Bg7 et ...c5.",
+          "alternatives": ["Be3 plan moderne", "Rb1"]
+        },
+        {
+          "name": "Variante russe",
+          "moves": ["d4", "Nf6", "c4", "g6", "Nc3", "d5", "Nf3", "Bg7", "Qb3", "dxc4", "Qxc4", "O-O", "e4", "Bg4", "Be3", "Nfd7"],
+          "idea": "Les Blancs gagnent du temps avec Qb3. Plan ...Nb6 et ...c5 pour les Noirs.",
+          "alternatives": ["Bf4 ligne moderne", "g3 fianchetto"]
+        },
+        {
+          "name": "Variante Bf4",
+          "moves": ["d4", "Nf6", "c4", "g6", "Nc3", "d5", "Bf4", "Bg7", "Rc1", "O-O", "e3", "c5", "dxc5", "Be6", "Nf3", "Nc6"],
+          "idea": "Approche calme et positionnelle.",
+          "alternatives": ["cxd5", "Qb3"]
+        },
+        {
+          "name": "Grünfeld - g3 (Stockholm)",
+          "moves": ["d4", "Nf6", "c4", "g6", "Nc3", "d5", "g3", "Bg7", "Bg2", "O-O", "Nf3", "c6", "O-O", "dxc4", "Ne5", "Be6"],
+          "idea": "Catalane modifiée pour mater la Grünfeld.",
+          "alternatives": ["cxd5", "e3 simple"]
+        }
+      ]
+    },
+    {
+      "name": "Défense Benoni moderne",
+      "color": "black",
+      "eco": "A60-A79",
+      "family": "indian",
+      "idea": "Pousser ...c5 pour défier le centre blanc et obtenir une majorité de pions à l'aile dame.",
+      "variations": [
+        {
+          "name": "Benoni moderne - ligne principale",
+          "moves": ["d4", "Nf6", "c4", "c5", "d5", "e6", "Nc3", "exd5", "cxd5", "d6", "e4", "g6", "Nf3", "Bg7", "Be2", "O-O"],
+          "idea": "Tabiya tendue : centre blanc fort, contre-jeu noir sur les colonnes c et e.",
+          "alternatives": ["f4 attaque Tal", "Nf3 ligne classique"]
+        },
+        {
+          "name": "Benoni - Variante Tal (4.f4)",
+          "moves": ["d4", "Nf6", "c4", "c5", "d5", "e6", "Nc3", "exd5", "cxd5", "d6", "e4", "g6", "f4", "Bg7", "Bb5+", "Nfd7"],
+          "idea": "Attaque très ambitieuse : f4-e5 menace de tout ouvrir.",
+          "alternatives": ["Nf3", "Be2 calme"]
+        },
+        {
+          "name": "Old Benoni",
+          "moves": ["d4", "c5", "d5", "e5", "e4", "d6", "Nc3", "Be7", "Nf3", "Bg4", "Be2", "Nf6", "O-O", "Nbd7"],
+          "idea": "Version ancienne avec ...e5 immédiat. Structure de pions très spécifique.",
+          "alternatives": ["c4 transposition", "h3 plan tranquille"]
+        }
+      ]
+    },
+    {
+      "name": "Gambit Benko",
+      "color": "black",
+      "eco": "A57-A59",
+      "family": "indian",
+      "idea": "Sacrifier un pion pour ouvrir les colonnes a et b et obtenir un long contre-jeu d'aile dame.",
+      "variations": [
+        {
+          "name": "Benko accepté",
+          "moves": ["d4", "Nf6", "c4", "c5", "d5", "b5", "cxb5", "a6", "bxa6", "Bxa6", "Nc3", "d6", "g3", "g6", "Bg2", "Bg7"],
+          "idea": "Compensation positionnelle classique : pression durable sur la colonne a.",
+          "alternatives": ["e4 ligne d'échange", "f3"]
+        },
+        {
+          "name": "Benko décliné - 4.a4",
+          "moves": ["d4", "Nf6", "c4", "c5", "d5", "b5", "a4", "bxc4", "Nc3", "g6", "e4", "d6", "Nf3", "Bg7"],
+          "idea": "Refuser le pion mais immobiliser l'aile dame noire.",
+          "alternatives": ["b3", "cxb5"]
+        }
+      ]
+    },
+    {
+      "name": "Trompowsky",
+      "color": "white",
+      "eco": "A45",
+      "family": "indian",
+      "idea": "2.Bg5 immédiat pour cassser la structure noire avant qu'elle ne se forme. Évite la théorie indienne.",
+      "variations": [
+        {
+          "name": "Trompowsky - ligne principale",
+          "moves": ["d4", "Nf6", "Bg5", "Ne4", "Bf4", "d5", "f3", "Nf6", "e4", "dxe4", "Nc3", "exf3", "Nxf3"],
+          "idea": "Les Blancs récupèrent le pion et gardent un centre fort.",
+          "alternatives": ["Bh4", "Bxe4"]
+        },
+        {
+          "name": "Trompowsky - 2...e6",
+          "moves": ["d4", "Nf6", "Bg5", "e6", "e4", "h6", "Bxf6", "Qxf6", "Nc3", "d6", "Qd2", "Nd7", "O-O-O", "g6"],
+          "idea": "Les Blancs gardent les deux fous et roquent long pour attaquer.",
+          "alternatives": ["c4 transposition Trompo", "Nf3 calme"]
+        },
+        {
+          "name": "Trompowsky - 2...c5",
+          "moves": ["d4", "Nf6", "Bg5", "c5", "Bxf6", "gxf6", "d5", "Qb6", "Qc1", "f5", "g3", "Bh6"],
+          "idea": "Les Noirs ouvrent la colonne g. Position très tranchante.",
+          "alternatives": ["d5 plus calme", "e3"]
         }
       ]
     },
@@ -574,6 +964,7 @@
       "name": "Défense Hollandaise",
       "color": "black",
       "eco": "A80-A99",
+      "family": "flexible_d4",
       "idea": "Jouer ...f5 dès le coup 1 pour contrôler e4 et lancer une attaque à l'aile-roi.",
       "variations": [
         {
@@ -593,6 +984,354 @@
           "moves": ["d4", "f5", "g3", "Nf6", "Bg2", "e6", "Nf3", "d5", "O-O", "Bd6", "c4", "c6", "b3", "Qe7", "Bb2", "O-O"],
           "idea": "Mur de pions e6-d5-c6-f5 et attaque sur le roi blanc.",
           "alternatives": ["Be7", "b6 plan Bb7"]
+        },
+        {
+          "name": "Hollandaise - Anti-1.c4",
+          "moves": ["c4", "f5", "Nc3", "Nf6", "g3", "g6", "Bg2", "Bg7", "Nf3", "O-O", "O-O", "d6", "d3", "c6"],
+          "idea": "Transposition Hollandaise contre l'Anglaise.",
+          "alternatives": ["d4 transposition", "e3"]
+        }
+      ]
+    },
+    {
+      "name": "Réti",
+      "color": "white",
+      "eco": "A04-A09",
+      "family": "reti",
+      "idea": "1.Nf3 flexible : combat hyper-moderne du centre, transpose vers Anglaise, Catalane ou Roi-Indien renversé.",
+      "variations": [
+        {
+          "name": "Réti vs ...d5",
+          "moves": ["Nf3", "d5", "c4", "e6", "g3", "Nf6", "Bg2", "Be7", "O-O", "O-O", "d4"],
+          "idea": "Transposition vers Catalane en gardant la flexibilité.",
+          "alternatives": ["b3 plan Larsen", "Nc3"]
+        },
+        {
+          "name": "Réti - système Nf3-c4-b3",
+          "moves": ["Nf3", "d5", "c4", "c6", "b3", "Bg4", "Bb2", "e6", "g3", "Nd7", "Bg2", "Ngf6", "O-O", "Bd6"],
+          "idea": "Setup hyper-moderne pur. Pression sur d5 par les fianchettos doubles.",
+          "alternatives": ["d4 transposition", "cxd5"]
+        },
+        {
+          "name": "Réti vs ...Nf6",
+          "moves": ["Nf3", "Nf6", "c4", "e6", "Nc3", "d5", "d4"],
+          "idea": "Transposition vers QGD.",
+          "alternatives": ["g3 fianchetto"]
+        },
+        {
+          "name": "Réti vs Roi-Indien renversé",
+          "moves": ["Nf3", "Nf6", "g3", "g6", "Bg2", "Bg7", "O-O", "O-O", "d3", "d6", "c4", "e5"],
+          "idea": "Setup Roi-Indien renversé avec un tempo en plus.",
+          "alternatives": ["Nc3", "e4"]
+        }
+      ]
+    },
+    {
+      "name": "Bird",
+      "color": "white",
+      "eco": "A02-A03",
+      "family": "flank",
+      "idea": "1.f4 pour contrôler e5 et lancer une attaque à l'aile-roi. Hollandaise inversée.",
+      "variations": [
+        {
+          "name": "Bird - ligne principale",
+          "moves": ["f4", "d5", "Nf3", "Nf6", "e3", "g6", "Be2", "Bg7", "O-O", "O-O", "d3", "c5", "Qe1"],
+          "idea": "Plan typique : Qe1-h4 pour attaquer le roi.",
+          "alternatives": ["b3 ligne Larsen", "g3 Léningrad inversé"]
+        },
+        {
+          "name": "Gambit From",
+          "moves": ["f4", "e5", "fxe5", "d6", "exd6", "Bxd6", "Nf3", "g5", "g3", "g4", "Nh4", "Ne7", "d4", "Ng6"],
+          "idea": "Réponse audacieuse des Noirs : sacrifier un pion pour l'attaque.",
+          "alternatives": ["e4 transposition Gambit Roi"]
+        }
+      ]
+    },
+    {
+      "name": "Larsen-Nimzowitsch",
+      "color": "white",
+      "eco": "A01",
+      "family": "flank",
+      "idea": "1.b3 pour fianchetter le fou immédiatement et préparer e3-d4 ou c4. Original et flexible.",
+      "variations": [
+        {
+          "name": "Larsen vs ...e5",
+          "moves": ["b3", "e5", "Bb2", "Nc6", "e3", "Nf6", "Bb5", "Bd6", "Na3", "O-O", "Nc4", "Re8"],
+          "idea": "Setup hyper-moderne. Cible e5 par diagonale longue.",
+          "alternatives": ["Nf3 transposition Réti"]
+        },
+        {
+          "name": "Larsen vs ...d5",
+          "moves": ["b3", "d5", "Bb2", "Nf6", "e3", "g6", "f4", "Bg7", "Nf3", "O-O"],
+          "idea": "Transposition vers une Bird/Larsen mixte.",
+          "alternatives": ["c4 transposition"]
+        }
+      ]
+    },
+    {
+      "name": "Catalan",
+      "color": "white",
+      "eco": "E01-E09",
+      "family": "closed_games",
+      "idea": "1.d4 d5 2.c4 e6 3.g3 : fianchetto du fou en g2 pour pression durable sur la grande diagonale.",
+      "variations": [
+        {
+          "name": "Catalan ouvert classique",
+          "moves": ["d4", "Nf6", "c4", "e6", "g3", "d5", "Bg2", "dxc4", "Nf3", "Be7", "O-O", "O-O", "Qc2", "a6", "Qxc4", "b5", "Qc2", "Bb7"],
+          "idea": "Récupération du pion par Qxc4. Plan b3-Bb2.",
+          "alternatives": ["a4", "Qd3"]
+        },
+        {
+          "name": "Catalan fermé classique",
+          "moves": ["d4", "Nf6", "c4", "e6", "g3", "d5", "Bg2", "Be7", "Nf3", "O-O", "O-O", "Nbd7", "Qc2", "c6", "Nbd2", "b6", "b3", "Bb7"],
+          "idea": "Plan stratégique : Bb2, Rfd1, e4 si possible.",
+          "alternatives": ["dxc4 ouverte", "c5 plan agressif"]
+        },
+        {
+          "name": "Catalan vs 4...Bb4+",
+          "moves": ["d4", "Nf6", "c4", "e6", "g3", "Bb4+", "Bd2", "Bxd2+", "Qxd2", "O-O", "Bg2", "d5", "Nf3", "Nbd7"],
+          "idea": "Évite la Catalane principale. Position solide pour les deux camps.",
+          "alternatives": ["Nd2 alternatif"]
+        }
+      ]
+    },
+    {
+      "name": "Move-order : 1.d4 e6",
+      "color": "white",
+      "eco": "A40",
+      "family": "flexible_d4",
+      "idea": "1...e6 est une entrée flexible. Selon le 2e coup noir, transposition vers Gambit Dame refusé, Nimzo, Bogo, Hollandaise ou Française.",
+      "variations": [
+        {
+          "name": "vs ...d5 (transposition QGD)",
+          "moves": ["d4", "e6", "c4", "d5", "Nc3", "Nf6", "Bg5", "Be7", "e3", "O-O"],
+          "idea": "Transposition vers le Gambit Dame refusé orthodoxe.",
+          "alternatives": ["Nf3 plus calme"]
+        },
+        {
+          "name": "vs ...Nf6 (transposition Nimzo)",
+          "moves": ["d4", "e6", "c4", "Nf6", "Nc3", "Bb4", "e3", "O-O", "Bd3", "d5"],
+          "idea": "Transposition vers la Nimzo-Indienne classique.",
+          "alternatives": ["Qc2 Capablanca", "a3 Sämisch"]
+        },
+        {
+          "name": "vs ...Nf6 (transposition Bogo)",
+          "moves": ["d4", "e6", "c4", "Nf6", "Nf3", "Bb4+", "Bd2", "Qe7"],
+          "idea": "Le clouage avec Nf3 conduit à la Bogo-Indienne.",
+          "alternatives": ["Nc3 Nimzo", "g3 Catalan"]
+        },
+        {
+          "name": "vs ...f5 (Hollandaise)",
+          "moves": ["d4", "e6", "c4", "f5", "g3", "Nf6", "Bg2", "Be7", "Nf3", "O-O"],
+          "idea": "Transposition vers la Hollandaise classique.",
+          "alternatives": ["Nh3 ligne moderne"]
+        },
+        {
+          "name": "vs ...b6 (English Defence)",
+          "moves": ["d4", "e6", "c4", "b6", "Nc3", "Bb7", "e4", "Bb4", "Bd3", "f5"],
+          "idea": "Tabiya English Defence : centre blanc fort, contre-jeu noir.",
+          "alternatives": ["Nf3 calme", "a3 prophylaxie"]
+        }
+      ]
+    },
+    {
+      "name": "Move-order : 1.d4 Nf6",
+      "color": "white",
+      "eco": "A45-A50",
+      "family": "indian",
+      "idea": "1...Nf6 ouvre la grande famille des défenses indiennes. 2.c4 garde toutes les options.",
+      "variations": [
+        {
+          "name": "vs ...g6 (transposition KID/Grünfeld)",
+          "moves": ["d4", "Nf6", "c4", "g6", "Nc3", "Bg7", "e4", "d6"],
+          "idea": "Transposition vers Est-Indienne classique. Si ...d5 = Grünfeld.",
+          "alternatives": ["Nf3 Fianchetto"]
+        },
+        {
+          "name": "vs ...e6 (Indien e6)",
+          "moves": ["d4", "Nf6", "c4", "e6", "Nf3", "b6", "g3", "Bb7"],
+          "idea": "Vers l'Ouest-Indienne fianchetto.",
+          "alternatives": ["Nc3 Nimzo"]
+        },
+        {
+          "name": "vs ...c5 (Benoni)",
+          "moves": ["d4", "Nf6", "c4", "c5", "d5", "e6", "Nc3", "exd5", "cxd5", "d6"],
+          "idea": "Transposition vers Benoni moderne.",
+          "alternatives": ["dxc5", "Nf3"]
+        },
+        {
+          "name": "vs ...d5 (Grünfeld direct)",
+          "moves": ["d4", "Nf6", "c4", "d5"],
+          "idea": "Possible Marshall Defence ou transposition vers QGD.",
+          "alternatives": ["cxd5 Variante d'échange"]
+        },
+        {
+          "name": "vs ...d6 (Old Indian)",
+          "moves": ["d4", "Nf6", "c4", "d6", "Nc3", "e5", "Nf3", "Nbd7", "g3", "g6", "Bg2", "Bg7"],
+          "idea": "Vieille Défense Indienne. Plan classique avec ...c6.",
+          "alternatives": ["e4 transposition KID"]
+        }
+      ]
+    },
+    {
+      "name": "Move-order : 1.d4 d5",
+      "color": "white",
+      "eco": "D00-D05",
+      "family": "closed_games",
+      "idea": "1...d5 conduit aux débuts fermés. 2.c4 = Gambit Dame ; sinon Système Londres ou Colle.",
+      "variations": [
+        {
+          "name": "vs ...e6 (QGD)",
+          "moves": ["d4", "d5", "c4", "e6", "Nc3", "Nf6", "Bg5"],
+          "idea": "Voie principale du Gambit Dame refusé.",
+          "alternatives": ["Nf3 calme", "cxd5 d'échange"]
+        },
+        {
+          "name": "vs ...c6 (Slave)",
+          "moves": ["d4", "d5", "c4", "c6", "Nf3", "Nf6", "Nc3"],
+          "idea": "Vers la Défense Slave principale.",
+          "alternatives": ["e3 Solide"]
+        },
+        {
+          "name": "vs ...dxc4 (QGA)",
+          "moves": ["d4", "d5", "c4", "dxc4", "Nf3", "Nf6", "e3"],
+          "idea": "Vers le Gambit Dame accepté.",
+          "alternatives": ["e4 ligne classique"]
+        },
+        {
+          "name": "vs ...Nc6 (Tchigorine)",
+          "moves": ["d4", "d5", "c4", "Nc6", "Nc3", "dxc4", "d5", "Ne5", "Bf4", "Ng6", "Bg3"],
+          "idea": "Défense Tchigorine. Position originale, jeu de pièces vivant.",
+          "alternatives": ["Nf3", "Bf4 simple"]
+        },
+        {
+          "name": "vs ...Nf6 (Marshall)",
+          "moves": ["d4", "d5", "c4", "Nf6", "cxd5", "Nxd5", "Nf3", "Bf5"],
+          "idea": "Tentative noire de simplifier ; les Blancs gardent un petit plus.",
+          "alternatives": ["Nc3 transposition"]
+        },
+        {
+          "name": "vs ...Bf5 (Baltic)",
+          "moves": ["d4", "d5", "c4", "Bf5", "cxd5", "Bxb1", "Qa4+", "Qd7", "Qxd7+", "Nxd7", "Rxb1"],
+          "idea": "Défense Baltique : provocation noire sur la diagonale.",
+          "alternatives": ["Nc3 calme"]
+        }
+      ]
+    },
+    {
+      "name": "Move-order : 1.c4 réponses",
+      "color": "white",
+      "eco": "A10-A39",
+      "family": "english",
+      "idea": "L'Anglaise accepte n'importe quelle réponse noire. Selon le 1er coup noir, on transpose vers d'autres familles.",
+      "variations": [
+        {
+          "name": "vs 1...c5 (Anglaise symétrique)",
+          "moves": ["c4", "c5", "Nc3", "Nc6", "g3", "g6"],
+          "idea": "Position miroir, jeu de fianchetto double.",
+          "alternatives": ["Nf3", "e3"]
+        },
+        {
+          "name": "vs 1...e5 (Sicilienne inversée)",
+          "moves": ["c4", "e5", "Nc3", "Nf6", "g3", "Bb4", "Bg2", "O-O"],
+          "idea": "Sicilienne renversée avec un tempo en plus.",
+          "alternatives": ["Nf3"]
+        },
+        {
+          "name": "vs 1...Nf6 (Indien)",
+          "moves": ["c4", "Nf6", "Nc3", "g6", "g3", "Bg7", "Bg2", "O-O"],
+          "idea": "Setup Roi-Indien renversé.",
+          "alternatives": ["d4 transposition"]
+        },
+        {
+          "name": "vs 1...e6 (Mikenas)",
+          "moves": ["c4", "e6", "Nc3", "Nf6", "e4", "d5", "e5", "d4"],
+          "idea": "Mikenas-Carls : provocation tactique.",
+          "alternatives": ["Nf3 calme", "d4 transposition QGD"]
+        },
+        {
+          "name": "vs 1...g6",
+          "moves": ["c4", "g6", "Nc3", "Bg7", "g3", "e5", "Bg2", "Ne7"],
+          "idea": "Setup KID renversé.",
+          "alternatives": ["d4 transposition"]
+        },
+        {
+          "name": "vs 1...c6 (Caro-Kann inversée)",
+          "moves": ["c4", "c6", "Nf3", "d5", "g3", "Nf6", "Bg2", "g6", "O-O", "Bg7"],
+          "idea": "Slav inversée. Jeu calme et stratégique.",
+          "alternatives": ["d4 transposition"]
+        },
+        {
+          "name": "vs 1...f5 (Hollandaise inversée)",
+          "moves": ["c4", "f5", "g3", "Nf6", "Bg2", "g6", "Nc3", "Bg7", "Nf3", "O-O"],
+          "idea": "Hollandaise inversée. Plan d4 puis combat de centre.",
+          "alternatives": ["d4 transposition"]
+        }
+      ]
+    },
+    {
+      "name": "Move-order : 1.Nf3 réponses",
+      "color": "white",
+      "eco": "A04-A09",
+      "family": "reti",
+      "idea": "1.Nf3 ne décide rien : transposition possible vers Catalane, Anglaise, Réti pur ou Roi-Indien renversé.",
+      "variations": [
+        {
+          "name": "vs 1...d5",
+          "moves": ["Nf3", "d5", "c4", "c6", "g3", "Nf6", "Bg2", "Bg4"],
+          "idea": "Réti pur. Combat hyper-moderne pour d5.",
+          "alternatives": ["d4 transposition"]
+        },
+        {
+          "name": "vs 1...Nf6",
+          "moves": ["Nf3", "Nf6", "c4", "c5", "g3", "g6", "Bg2", "Bg7", "O-O", "O-O"],
+          "idea": "Setup symétrique flexible.",
+          "alternatives": ["d4 transposition Indienne"]
+        },
+        {
+          "name": "vs 1...c5",
+          "moves": ["Nf3", "c5", "c4", "Nc6", "Nc3", "g6", "g3", "Bg7", "Bg2"],
+          "idea": "Anglaise symétrique par transposition.",
+          "alternatives": ["e4 Sicilienne"]
+        },
+        {
+          "name": "vs 1...e6",
+          "moves": ["Nf3", "e6", "c4", "Nf6", "g3", "d5", "Bg2", "Be7", "O-O", "O-O", "d4"],
+          "idea": "Catalane par transposition.",
+          "alternatives": ["b3 Larsen"]
+        },
+        {
+          "name": "vs 1...g6",
+          "moves": ["Nf3", "g6", "g3", "Bg7", "Bg2", "d6", "O-O", "Nf6", "d3", "O-O", "e4"],
+          "idea": "Roi-Indien renversé pur.",
+          "alternatives": ["c4 transposition Anglaise"]
+        }
+      ]
+    },
+    {
+      "name": "Move-order : 1.e4 réponses minoritaires",
+      "color": "white",
+      "eco": "B00",
+      "family": "semi_open",
+      "idea": "Couverture des réponses 1...Nc6, 1...b6, 1...a6 etc. Toutes mènent à des structures connues.",
+      "variations": [
+        {
+          "name": "vs 1...Nc6 (Nimzowitsch)",
+          "moves": ["e4", "Nc6", "d4", "d5", "e5", "Bf5", "c3", "e6", "Nf3"],
+          "idea": "Provocation. Transposition possible vers une Caro-Kann d'avance.",
+          "alternatives": ["Nc3 calme", "Nf3 d3"]
+        },
+        {
+          "name": "vs 1...a6 (St. George)",
+          "moves": ["e4", "a6", "d4", "b5", "Nf3", "Bb7", "Bd3", "e6", "O-O", "Nf6"],
+          "idea": "Système marginal mais flexible.",
+          "alternatives": ["Nc3"]
+        },
+        {
+          "name": "vs 1...b6 (Owen direct)",
+          "moves": ["e4", "b6", "d4", "Bb7", "Bd3", "e6", "Nf3", "Nf6", "Qe2", "d6"],
+          "idea": "Développement classique des Blancs.",
+          "alternatives": ["Nc3"]
         }
       ]
     }
