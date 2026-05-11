@@ -21,6 +21,8 @@ CANDIDATE_PATHS = [
     "/usr/local/bin/stockfish",
     "/opt/homebrew/bin/stockfish",
     "/usr/bin/stockfish",
+    "/usr/games/stockfish",
+    "/usr/local/games/stockfish",
 ]
 
 

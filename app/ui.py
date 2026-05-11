@@ -290,6 +290,13 @@ class WelcomeScreen(QWidget):
         tagline.setWordWrap(True)
         tagline.setAlignment(Qt.AlignCenter)
         visual_layout.addWidget(tagline)
+        lib_row = QHBoxLayout()
+        lib_row.addStretch()
+        self.btn_library = QPushButton("📚 Voir toutes les ouvertures")
+        self.btn_library.clicked.connect(self._open_library)
+        lib_row.addWidget(self.btn_library)
+        lib_row.addStretch()
+        visual_layout.addLayout(lib_row)
         body.addWidget(visual_card, 1)
 
         # Wiring
@@ -313,6 +320,9 @@ class WelcomeScreen(QWidget):
         label = QLabel(text)
         label.setObjectName("muted")
         return label
+
+    def _open_library(self) -> None:
+        OpeningsDialog(self.book, self).exec()
 
     # -- state --
     def _is_bot(self) -> bool:
@@ -387,6 +397,63 @@ class WelcomeScreen(QWidget):
 # -----------------------------------------------------------------------------
 # Settings dialog
 # -----------------------------------------------------------------------------
+
+class OpeningsDialog(QDialog):
+    """Affiche la bibliothèque d'ouvertures, regroupée par famille."""
+
+    def __init__(self, book: OpeningBook, parent: Optional[QWidget] = None) -> None:
+        super().__init__(parent)
+        self.setWindowTitle("Bibliothèque d'ouvertures")
+        self.setModal(True)
+        self.resize(760, 620)
+
+        from .opening_book import FAMILY_LABELS  # local import to avoid cycle at top
+
+        n_op = len(book.openings)
+        n_var = sum(len(o.variations) for o in book.openings)
+
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(24, 22, 24, 22)
+        layout.setSpacing(10)
+        title = QLabel("Bibliothèque d'ouvertures")
+        title.setObjectName("h2")
+        layout.addWidget(title)
+        sub = QLabel(f"{n_op} ouvertures · {n_var} variantes — éditable dans openings.json")
+        sub.setObjectName("muted")
+        layout.addWidget(sub)
+        layout.addWidget(_divider())
+
+        view = QPlainTextEdit()
+        view.setReadOnly(True)
+        lines: List[str] = []
+        # ordre d'affichage des familles
+        order = [
+            "open_games", "semi_open", "closed_games",
+            "indian", "flexible_d4", "english", "reti", "flank", "other",
+        ]
+        by_family: dict = {}
+        for op in book.openings:
+            by_family.setdefault(op.family, []).append(op)
+        for fam in order:
+            ops = by_family.get(fam)
+            if not ops:
+                continue
+            lines.append(f"━━ {FAMILY_LABELS.get(fam, fam)} ━━")
+            for op in ops:
+                color = "Blancs" if op.color == "white" else "Noirs"
+                lines.append(f"  • {op.name}  [{color}, {op.eco}, {len(op.variations)} variantes]")
+                for v in op.variations:
+                    lines.append(f"      – {v.name}")
+            lines.append("")
+        view.setPlainText("\n".join(lines))
+        layout.addWidget(view, 1)
+
+        bb = QDialogButtonBox(QDialogButtonBox.Close)
+        bb.button(QDialogButtonBox.Close).setText("Fermer")
+        bb.rejected.connect(self.reject)
+        bb.accepted.connect(self.accept)
+        layout.addWidget(bb)
+
 
 class SettingsDialog(QDialog):
     def __init__(self, settings: Settings, engine: EngineManager, parent: Optional[QWidget] = None) -> None:
